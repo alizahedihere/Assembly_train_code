@@ -1,0 +1,53 @@
+; multi-segment executable file template.
+
+data segment
+    ; add your data here!
+    msg DB "Welcome$"
+    num DB 1
+ends
+
+stack segment
+    dw   128  dup(0)
+ends
+
+code segment
+start:
+; set segment registers:
+    mov ax, data
+    mov ds, ax
+    mov es, ax
+
+    ; add your code here
+    label1:
+    MOV AH, 2H          
+    MOV DH, NUM
+    MOV DL, 1
+    MOV BH, 0
+    INT 10H
+    
+    MOV AH, 09H
+    MOV DX, offset msg
+    INT 21H
+    
+    MOV AH, 6H
+    MOV AL, 1
+    MOV CH, NUM
+    MOV CL, 0
+    MOV DH, NUM
+    MOV DL, 7
+    MOV BH, 00000000b
+    INT 10H
+    
+    INC NUM
+    
+    CMP NUM, 25
+    JNZ Label1    
+    ; wait for any key....    
+    mov ah, 1
+    int 21h
+    
+    mov ax, 4c00h ; exit to operating system.
+    int 21h    
+ends
+
+end start ; set entry point and stop the assembler.
