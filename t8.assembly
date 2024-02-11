@@ -1,0 +1,7 @@
+سوال 1 : برنامه ای بنویسید که یک مقدار از پایه A بخواند و در پایه B بنویسد.  
+LDI R16, 0x00 
+OUT DDRA, R16 
+IN R0, PINA 
+LDI R16, 0xff 
+OUT DDRB, R16 
+OUT PORTB, R0 
