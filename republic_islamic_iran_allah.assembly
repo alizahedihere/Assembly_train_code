@@ -1,0 +1,64 @@
+; multi-segment executable file template.
+
+data segment
+    ; add your data here!
+    mss: DB "ALLAH$"
+ends
+
+stack segment
+    dw   128  dup(0)
+ends
+
+code segment
+start:
+; set segment registers:
+    mov ax, data
+    mov ds, ax
+    mov es, ax
+
+    ; add your code here
+    MOV AH, 6H
+    MOV AL, 0
+    MOV CH, 5
+    MOV CL, 25
+    MOV DH, 10
+    MOV DL, 55
+    MOV BH, 00100000b
+    INT 10H
+    
+    MOV AH, 6H
+    MOV AL, 0
+    MOV CH, 10
+    MOV CL, 25
+    MOV DH, 15
+    MOV DL, 55
+    MOV BH, 01110000b
+    INT 10H
+    
+    MOV AH, 6H
+    MOV AL, 0
+    MOV CH, 15
+    MOV CL, 25
+    MOV DH, 20
+    MOV DL, 55
+    MOV BH, 01000000b
+    INT 10H
+    
+    MOV AH, 2H
+    MOV DH, 12
+    MOV DL, 37
+    MOV BH, 0
+    INT 10H
+    
+    MOV DX, mss
+    MOV AH, 09H
+    INT 21H
+    ; wait for any key....    
+    mov ah, 1
+    int 21h
+    
+    mov ax, 4c00h ; exit to operating system.
+    int 21h    
+ends
+
+end start ; set entry point and stop the assembler.
