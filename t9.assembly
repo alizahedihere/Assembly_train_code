@@ -1,0 +1,8 @@
+سوال 2 : برنامه ای بنویسید که یک مقدار را از پایه C بخواند، آن را دو برابر کند و در پایه B  بنویسد. 
+LDI R16, 0x00 
+OUT DDRC, R16 
+IN R0, PINC 
+ADD R0, R0 
+LDI R16, 0xff 
+OUT DDRB, R16 
+OUT PORTB, R0
