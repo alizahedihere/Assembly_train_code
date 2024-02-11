@@ -1,0 +1,12 @@
+سوال 5 : برنامه سوال 4 را فقط با استفاده از یک LDIبنویسید. 
+LDI R0, 2 
+ADD R1, R0 
+ADD R1, R1 
+ADD R2, R1 
+ADD R2, R2 
+ADD R3, R2 
+ADD R3, R3 
+ADD R4, R3 
+ADD R4, R4 
+ADD R5, R4 
+ADD R5, R5
