@@ -1,0 +1,75 @@
+; multi-segment executable file template.
+
+data segment
+    ; add your data here!
+    msgn1: DB "Enter first number : $"
+    msgn2: DB "Enter second number : $"
+    msgn3: DB "Sum is : $"
+    n1 DB "$"
+    n2 DB "$"
+    n3 DB "$"
+ends
+
+stack segment
+    dw   128  dup(0)
+ends
+
+code segment
+start:
+; set segment registers:
+    mov ax, data
+    mov ds, ax
+    mov es, ax
+
+    ; add your code here
+    MOV AH, 9H
+    MOV DH, OFFSET MSGN1
+    INT 21H
+    
+    MOV AH, 1H
+    INT 21H
+    MOV N1, AL
+              
+    MOV AH, 1H
+    INT 21H
+    ADD N1, AL
+    SUB N1, 30H
+    ;
+    
+    MOV DX, MSGN2
+    MOV AH, 09H
+    INT 21H
+    
+    MOV AH, 1H
+    INT 21H
+    MOV N2, AL
+              
+    MOV AH, 1H
+    INT 21H
+    ADD N2, AL
+    SUB N2, 30H
+    
+    MOV AL, N1
+    ADD AL, N2
+    
+    ADD AL, 30H
+    
+    MOV N3, AL
+    
+    MOV DX, MSGN3
+    MOV AH, 09H
+    INT 21H
+    
+    MOV DX, N3
+    MOV AH, 09H
+    INT 21H
+    
+    ; wait for any key....    
+    mov ah, 1
+    int 21h
+    
+    mov ax, 4c00h ; exit to operating system.
+    int 21h    
+ends
+
+end start ; set entry point and stop the assembler.
